@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/b9d007dc-18ca-4ab9-87a2-41aea2fc9bb1/AppServices/subscriptions/b9d007dc-18ca-4ab9-87a2-41aea2fc9bb1/resourceGroups/Jens-Nymoen/providers/Microsoft.Web/sites/fleet-management-XYZ",
+    "appService.deploySubpath": "."
+}

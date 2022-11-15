@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+
+{% block title %}
+Vehicles
+{% endblock%}
+
+{% block content %}
+
+<center><h2>Tasks</h2></center>
+
+<div class='row'>
+    <divclass='col'>
+        <div class='col-md'>
+            <a class='btn btn-primary btn-sm btn-block' href='{% url 'create_vehicle' %}'>Register Vehicle</a>
+        </div>
+    </div>
+    
+    <div></div>
+</div>
+
+
+<div class='row'>
+    <div class='col'>
+        <div class='col-md'>
+            <div class='card card-body'>
+        
+                    <table class='table'>
+                        <tr>
+                            <th>Task Name</th>
+                            <th>Vehicle</th>
+                            <th>Task Type</th>
+                            <th>Start Date</th>
+                            <th>Due Date</th>
+                        </tr>
+                    {% for i in tasks %}
+                        <tr>
+                            <td>{{i.task_name}}</td>
+                            <td>{{i.task_object}}</td>
+                            <td>{{i.task_type}}</td>
+                            <td>{{i.start_date}}</td>
+                            <td>{{i.due_date}}</td>
+                            <td><a href='{% url 'edit_vehicle' i.id %}'>Update</a></td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                </div>        
+            </div>
+        </div>        
+    </div>
+</div>   
+
+{% endblock %}

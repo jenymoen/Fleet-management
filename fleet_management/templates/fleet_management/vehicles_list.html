@@ -1,0 +1,75 @@
+{% extends 'base.html'%}
+
+{% block title %}
+Vehicles
+{% endblock%}
+
+{% block content %}
+
+<center><h2>Vehicles</h2></center>
+
+<div class='row'>
+    <divclass='col'>
+        <div class='col-md'>
+            <a class='btn btn-primary btn-sm btn-block' href='{% url 'create_vehicle' %}'>Register Vehicle</a>
+        </div>
+    </div>
+    
+    <div></div>
+</div>
+
+
+<div class='row'>
+    <div class='col'>
+        <div class='col-md'>
+            <div class='card card-body'>
+        
+                    <table class='table'>
+                        <tr>
+                            <th>Reg Nr</th>
+                            <th>Brand</th>
+                            <th>Model</th>
+                            <th>Vehicle Type</th>
+                            <th>Department</th>
+                            <th>Tyre Hotel</th>
+                            <th>Next EU control</th>
+                        </tr>
+                    {% for i in vehicles %}
+                        <tr>
+                            <td><a
+                                href='{% url 'vehicle_detailview' i.id %}'
+                            </a>{{i.reg_number}}</td>
+                            <td>{{i.brand}}</td>
+                            <td>{{i.model}}</td>
+                            <td>{{i.vehicle_type}}</td>
+                            <td>{{i.department}}</td>
+                            <td>{{i.tyre_hotel}}</td>
+                            <td>{{i.next_eu_control}}</td>
+                            <td><a href='{% url 'edit_vehicle' i.id %}'>Update</a></td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                </div>        
+            </div>
+        </div>        
+    </div>
+</div>   
+
+{% endblock %}
+
+
+
+
+
+{% comment %} <!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Hello, Django</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'fleet_management/site.css' %}" />
+    </head>
+    <body>
+        <span class="message">Hello, there {{ reg_number }}!</span> It's {{ now }}
+    </body>
+</html> {% endcomment %}

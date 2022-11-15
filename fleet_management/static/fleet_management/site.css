@@ -1,0 +1,14 @@
+.message {
+    font-weight: 600;
+    color: blue;
+}
+
+
+.row {
+    padding: 10px;
+    background-color: rgb(194, 194, 194);
+}
+
+.column {
+    background-color: rgb(255, 255, 255);
+}
