@@ -9,7 +9,13 @@ Vehicles
 <center><h2>Tasks</h2></center>
 
 <div class='row'>
-    <divclass='col'>
+    <div class='col'>
+        <div class='col-md'>
+            <a class='btn btn-primary btn-sm btn-block' href='{% url 'create_vehicle' %}'>Register Vehicle</a>
+        </div>
+    </div>
+    
+    <div class='col'>
         <div class='col-md'>
             <a class='btn btn-primary btn-sm btn-block' href='{% url 'create_vehicle' %}'>Register Vehicle</a>
         </div>
@@ -24,7 +30,7 @@ Vehicles
         <div class='col-md'>
             <div class='card card-body'>
         
-                    <table class='table'>
+                    <table id='tasks'>
                         <tr>
                             <th>Task Name</th>
                             <th>Vehicle</th>
@@ -34,12 +40,12 @@ Vehicles
                         </tr>
                     {% for i in tasks %}
                         <tr>
-                            <td>{{i.task_name}}</td>
+                            <td><a href='{% url 'task_detailview' i.id %}' </a>{{i.task_name}}</td>
                             <td>{{i.task_object}}</td>
                             <td>{{i.task_type}}</td>
                             <td>{{i.start_date}}</td>
                             <td>{{i.due_date}}</td>
-                            <td><a href='{% url 'edit_vehicle' i.id %}'>Update</a></td>
+                            <td><a href='{% url 'edit_task' i.id %}'>Update</a></td>
                         </tr>
                     {% endfor %}
                     </table>

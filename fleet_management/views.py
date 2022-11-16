@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
 from .forms import *
+from django.db.models import Q
 
 
 def home(request):
@@ -20,10 +21,16 @@ def overview(request):
 
 def vehicles_list(request):
     vehicles = Vehicle.objects.all()
-
-    return render(
-        request, "fleet_management/vehicles_list.html", {"vehicles": vehicles}
+    next_task = Task.objects.filter(start_date__gt=datetime.now()).order_by(
+        "-start_date"
     )
+
+    context = {
+        "vehicles": vehicles,
+        "next_task": next_task,
+    }
+
+    return render(request, "fleet_management/vehicles_list.html", context)
 
 
 def createVehicle(request):
@@ -55,7 +62,7 @@ def editVehicle(request, pk):
 def detailViewVehicle(request, pk):
     vehicle_detailview = Vehicle.objects.get(id=pk)
     vehicles = Vehicle.objects.all()
-    task_vehicle = Task.objects.get(id=pk)
+    task_vehicle = Task.objects.filter(task_object=vehicle_detailview).values()
     context = {
         "vehicle_detailview": vehicle_detailview,
         "vehicles": vehicles,
@@ -63,6 +70,9 @@ def detailViewVehicle(request, pk):
     }
 
     return render(request, "fleet_management/vehicle_detailview.html", context)
+
+
+# TASKS
 
 
 def task_list(request):
@@ -86,4 +96,51 @@ def createTask(request):
     return render(request, "fleet_management/create_task.html", context)
 
 
-# Create your views here.
+def editTask(request, pk):
+    vehicle = Task.objects.get(id=pk)
+    form = Create_taskForm(instance=vehicle)
+    if request.method == "POST":
+        form = Create_taskForm(request.POST, instance=vehicle)
+        if form.is_valid():
+            form.save()
+            return redirect("/task_list/")
+
+    return render(request, "fleet_management/create_task.html", {"form": form})
+
+
+def detailViewTask(request, pk):
+    task_detailview = Task.objects.get(id=pk)
+    # vehicles = Vehicle.objects.all()
+    # task_vehicle = Task.objects.filter(task_object=vehicle_detailview).values()
+    context = {
+        "task_detailview": task_detailview,
+    }
+
+    return render(request, "fleet_management/task_detailview.html", context)
+
+
+# EXPENSE
+
+
+def expenseList(request):
+
+    all_expenses = Expense.objects.all()
+    queryset = Expense.objects.aggregate(Sum("amount"))
+    number = Expense.objects.all().count()
+    context = {"all_expenses": all_expenses, "queryset": queryset, "number": number}
+
+    return render(request, "fleet_management/expense_list.html", context)
+
+
+def createExpense(request):
+
+    form = ExpenseForm()
+    if request.method == "POST":
+        form = ExpenseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("expense_list")
+
+    context = {"form": form}
+
+    return render(request, "fleet_management/create_expense.html", context)

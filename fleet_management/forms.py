@@ -1,7 +1,15 @@
 from django import forms
-
-from fleet_management.models import Task, Vehicle
+from django.forms.widgets import DateInput
+from fleet_management.models import *
 from django.forms import ModelForm
+
+
+class DateInput(forms.DateInput):
+    input_type = "date"
+
+
+class DateForm(forms.Form):
+    date = forms.DateField(widget=DateInput)
 
 
 class VehiclesForm(ModelForm):
@@ -23,6 +31,11 @@ class VehiclesForm(ModelForm):
             "vin_number",
             "leasing_expiry",
         ]
+        widgets = {
+            "date_km": DateInput(),
+            "next_eu_control": DateInput(),
+            "leasing_expiry": DateInput(),
+        }
 
 
 class Create_taskForm(ModelForm):
@@ -35,3 +48,16 @@ class Create_taskForm(ModelForm):
             "start_date",
             "due_date",
         ]
+        widgets = {"start_date": DateInput(), "due_date": DateInput()}
+
+
+class ExpenseForm(ModelForm):
+    class Meta:
+        model = Expense
+        fields = [
+            "exp_date",
+            "expense_category",
+            "amount",
+        ]
+
+        widgets = {"exp_date": DateInput()}

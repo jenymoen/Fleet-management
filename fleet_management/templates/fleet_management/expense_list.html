@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md">
+    <a class='btn btn-primary btn-sm btn-block' href='{% url 'create_expense' %}'>New Expense</a>
+</div>
+
+
+
+<table class='table'>
+    <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Amount</th>
+                            
+    </tr>
+
+    {% for i in all_expenses %}
+    <tr>
+        <td>{{i.exp_date}}</td>
+        <td>{{i.expense_category}}</td>
+        <td>{{i.amount}}</td>
+        
+    </tr>    
+    
+    {% endfor %}
+
+    <tr>
+        <td></td>
+        <td>Antall: {{ number }}</td>
+        <td>Total kost: {{ queryset.amount__sum }}</td>
+    </tr>
+
+</table>
+
+{% endblock %}

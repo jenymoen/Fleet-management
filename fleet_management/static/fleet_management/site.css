@@ -4,11 +4,8 @@
 }
 
 
-.row {
-    padding: 10px;
-    background-color: rgb(194, 194, 194);
-}
-
-.column {
-    background-color: rgb(255, 255, 255);
+table {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+    background-color: aqua;
 }

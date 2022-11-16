@@ -14,4 +14,8 @@ urlpatterns = [
     ),
     path("create_task/", views.createTask, name="create_task"),
     path("task_list/", views.task_list, name="task_list"),
+    path("task_detailview/<str:pk>", views.detailViewTask, name="task_detailview"),
+    path("edit_task/<str:pk>/", views.editTask, name="edit_task"),
+    path("expense_list/", views.expenseList, name="expense_list"),
+    path("create_expense/", views.createExpense, name="create_expense"),
 ]

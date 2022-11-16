@@ -45,6 +45,8 @@ Vehicles
                             <td>{{i.department}}</td>
                             <td>{{i.tyre_hotel}}</td>
                             <td>{{i.next_eu_control}}</td>
+                            <td>{{ next_task }}</td>
+                            <td>{{i.next_eu_control}}</td>
                             <td><a href='{% url 'edit_vehicle' i.id %}'>Update</a></td>
                         </tr>
                     {% endfor %}

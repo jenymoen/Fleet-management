@@ -2,6 +2,7 @@ from email.policy import default
 from sre_constants import CATEGORY
 from django.db import models
 from django.db.models.enums import Choices
+from django.db.models import Sum
 
 
 # class User(models.Model):
@@ -12,8 +13,12 @@ from django.db.models.enums import Choices
 class Department(models.Model):
     department_name = models.CharField(max_length=50, null=True, blank=True)
 
-    # def __str__(self):
-    #     return self.department_name
+    def __str__(self):
+        return self.department_name
+
+
+class Contract(models.Model):
+    contract_name = models.CharField(max_length=200, null=True, blank=True)
 
 
 class Vehicle(models.Model):
@@ -64,4 +69,27 @@ class Task(models.Model):
     start_date = models.DateField(null=True, blank=True)
     due_date = models.DateField(null=True, blank=True)
 
-    # Create your models here.
+    def __str__(self):
+        return self.task_name
+
+
+class Expense(models.Model):
+
+    EXP_CAT = (
+        ("Spareparts", "Spareparts"),
+        ("Tyres", "Tyres"),
+        ("Gas", "Gas"),
+    )
+
+    exp_date = models.DateField(null=True, blank=True)
+    vehicle = models.ForeignKey(
+        Vehicle, null=True, blank=True, on_delete=models.CASCADE
+    )
+    expense_category = models.CharField(
+        max_length=200, blank=True, null=True, choices=EXP_CAT
+    )
+    amount = models.IntegerField(blank=True, null=True)
+
+    @property
+    def __str__(self):
+        return self.expense_category
